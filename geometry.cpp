@@ -25,7 +25,7 @@ int main()
 
     while (1) {
         printf("Input data in type 'circle(x,y,r)'.To exit input 'exit': ");
-        gets(s);
+        scanf("%s", s);
         if (strncmp(A, s, 7) == 0) {
             while (p < 2) {
                 if (s[i] == ',') {
