@@ -11,7 +11,7 @@ const char A[] = "circle(", B[] = "triangle(", C[] = "polygone(";
 int main()
 {
     int i, ic = 7, pc = 0, kc = 7, jc = 0, it = 9, jt = 0, kt = 9, pt = 0,
-           jp = 0;
+           jp = 0, flag = 0;
     float r, c, rad[N], ix[8], xc[N], yc[N], xt[3 * N], yt[3 * N], xp[4 * N],
             yp[4 * N];
     char s[80], s1[80] = {0}, exit[] = "exit", emp[] = "\0";
@@ -26,11 +26,12 @@ int main()
         /*CHECK FOR CIRCLE*/
         if (strncmp(A, s, 7) == 0) {
             while (pc < 2) {
-                if (s[ic] == ',') {
+                if (s[ic] == ',' && flag) {
                     ix[pc] = atof(s1);
                     strcpy(s1, emp);
                     pc++;
                     kc++;
+                    flag = 0;
                 } else if (
                         s[ic] == '.' || s[ic] == '0' || s[ic] == '1'
                         || s[ic] == '2' || s[ic] == '3' || s[ic] == '4'
@@ -38,9 +39,10 @@ int main()
                         || s[ic] == '8' || s[ic] == '9' || s[ic] == '-') {
                     strncat(s1, s + kc, 1);
                     kc++;
+                    flag = 1;
                 } else {
                     pc = 0;
-
+                    flag = 0;
                     printf("Wrong data type! Try again.\n");
                     break;
                 }
@@ -48,7 +50,7 @@ int main()
             }
 
             while (pc != 0) {
-                if (s[ic] == ')') {
+                if (s[ic] == ')' && flag) {
                     r = atof(s1);
                     strcpy(s1, emp);
                     xc[jc] = ix[0];
@@ -57,6 +59,7 @@ int main()
                     jc++;
                     circle(ix[0], ix[1], r);
                     pc = 0;
+                    flag = 0;
                 } else if (
                         s[ic] == '.' || s[ic] == '0' || s[ic] == '1'
                         || s[ic] == '2' || s[ic] == '3' || s[ic] == '4'
@@ -64,8 +67,10 @@ int main()
                         || s[ic] == '8' || s[ic] == '9') {
                     strncat(s1, s + kc, 1);
                     kc++;
+                    flag = 1;
                 } else {
                     printf("Wrong data type! Try again.\n");
+                    flag = 0;
                     break;
                 }
                 ic++;
@@ -84,11 +89,12 @@ int main()
         /*CHECK FOR TRIANGLE*/
         else if (strncmp(B, s, 9) == 0) {
             while (pt < 6) {
-                if (s[it] == ',') {
+                if (s[it] == ',' && flag) {
                     ix[pt] = atof(s1);
                     strcpy(s1, emp);
                     pt++;
                     kt++;
+                    flag = 0;
                 } else if (
                         s[it] == '.' || s[it] == '0' || s[it] == '1'
                         || s[it] == '2' || s[it] == '3' || s[it] == '4'
@@ -96,7 +102,8 @@ int main()
                         || s[it] == '8' || s[it] == '9' || s[it] == '-') {
                     strncat(s1, s + kt, 1);
                     kt++;
-                } else if (pt == 5 && s[it] == ')') {
+                    flag = 1;
+                } else if (pt == 5 && s[it] == ')' && flag) {
                     ix[pt] = atof(s1);
                     for (i = 0; i < 6; i += 2) {
                         xt[jt] = ix[i];
@@ -104,9 +111,11 @@ int main()
                         jt++;
                     }
                     pt++;
+                    flag = 0;
                     triangle(ix[0], ix[1], ix[2], ix[3], ix[4], ix[5]);
                 } else {
                     printf("Wrong data type! Try again.\n");
+                    flag = 0;
                     break;
                 }
                 it++;
@@ -120,11 +129,12 @@ int main()
         /*CHECK FOR POLYGONE*/
         else if (strncmp(C, s, 9) == 0) {
             while (pt < 8) {
-                if (s[it] == ',') {
+                if (s[it] == ',' && flag) {
                     ix[pt] = atof(s1);
                     strcpy(s1, emp);
                     pt++;
                     kt++;
+                    flag = 0;
                 } else if (
                         s[it] == '.' || s[it] == '0' || s[it] == '1'
                         || s[it] == '2' || s[it] == '3' || s[it] == '4'
@@ -132,7 +142,8 @@ int main()
                         || s[it] == '8' || s[it] == '9' || s[it] == '-') {
                     strncat(s1, s + kt, 1);
                     kt++;
-                } else if (pt == 7 && s[it] == ')') {
+                    flag = 1;
+                } else if (pt == 7 && s[it] == ')' && flag) {
                     ix[pt] = atof(s1);
                     for (i = 0; i < 8; i += 2) {
                         xt[jp] = ix[i];
@@ -140,6 +151,7 @@ int main()
                         jp++;
                     }
                     pt++;
+                    flag = 0;
                     polygone(
                             ix[0],
                             ix[1],
@@ -150,6 +162,7 @@ int main()
                             ix[6],
                             ix[7]);
                 } else {
+                    flag = 0;
                     printf("Wrong data type! Try again.\n");
                     break;
                 }
