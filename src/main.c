@@ -13,7 +13,7 @@ int main()
     int ic = 7, pc = 0, kc = 7, it = 9, kt = 9, pt = 0, flag = 0;
     float r, ix[8];
     char s[80], s1[80] = {0}, exit[] = "exit", emp[] = "\0";
-    printf("Input data in type:"
+    printf("Input data in type: "
            "\n'circle(x,y,r)'\n'triangle(x1,y1,x2,y2,x3,y3)'\n'polygone(x1,y1,"
            "x2,y2,x3,y3,x4,y4)'\nTo exit input 'exit'.\n");
 

@@ -1,5 +1,4 @@
-build/out
+build/geometry.exe
 *.o
 *.swp
-clean
-
+*.exe
