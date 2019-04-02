@@ -1,12 +1,16 @@
-CC = gcc
-CFLAGS = -Wall -Werror -lm
-EXECUTABLE = geom
-SOURCES = src/main.c src/figures.c
-OBJECTS = $(SOURCES:.c=.o)
-all:$(SOURCES) $(EXECUTABLE)
-$(EXECUTABLE) : $(OBJECTS)
-	$(CC) $(OBJECTS) -o $@
-.c.o:
-	$(CC) ${CFLAGS) $< -o $@
+.PHONY:all clean
+CC=gcc
+CFLAGS=-Wall -Werror
+SD=~/geometry/src/
+OD=~/geometry/bin/
+EXECUTABLE=~/geometry/build/geometry.exe
+all: $(EXECUTABLE)
+	
+$(EXECUTABLE): $(OD)figures.o $(OD)main.o 
+	$(CC) $(CFLAGS) -o $(EXECUTABLE) $(OD)figures.o $(OD)main.o -lm
+$(OD)figures.o: $(SD)figures.c
+	$(CC) $(CFLAGS) -c -o $(OD)figures.o $(SD)figures.c -lm
+$(OD)main.o: $(SD)main.c
+	$(CC) $(CFLAGS) -c -o $(OD)main.o $(SD)main.c -lm
 clean:
-	rm -rf *.o *.exe
+	rm -rf $(EXECUTABLE) $(OD)*.o

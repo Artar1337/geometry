@@ -10,12 +10,10 @@ const char A[] = "circle(", B[] = "triangle(", C[] = "polygone(";
 
 int main()
 {
-    int i, ic = 7, pc = 0, kc = 7, jc = 0, it = 9, jt = 0, kt = 9, pt = 0,
-           jp = 0, flag = 0;
-    float r, c, rad[N], ix[8], xc[N], yc[N], xt[3 * N], yt[3 * N], xp[4 * N],
-            yp[4 * N];
+    int ic = 7, pc = 0, kc = 7, it = 9, kt = 9, pt = 0, flag = 0;
+    float r, ix[8];
     char s[80], s1[80] = {0}, exit[] = "exit", emp[] = "\0";
-    printf("Input data in type: "
+    printf("Input data in type:"
            "\n'circle(x,y,r)'\n'triangle(x1,y1,x2,y2,x3,y3)'\n'polygone(x1,y1,"
            "x2,y2,x3,y3,x4,y4)'\nTo exit input 'exit'.\n");
 
@@ -53,10 +51,6 @@ int main()
                 if (s[ic] == ')' && flag) {
                     r = atof(s1);
                     strcpy(s1, emp);
-                    xc[jc] = ix[0];
-                    yc[jc] = ix[1];
-                    rad[jc] = r;
-                    jc++;
                     circle(ix[0], ix[1], r);
                     pc = 0;
                     flag = 0;
@@ -105,11 +99,6 @@ int main()
                     flag = 1;
                 } else if (pt == 5 && s[it] == ')' && flag) {
                     ix[pt] = atof(s1);
-                    for (i = 0; i < 6; i += 2) {
-                        xt[jt] = ix[i];
-                        yt[jt] = ix[i + 1];
-                        jt++;
-                    }
                     pt++;
                     flag = 0;
                     triangle(ix[0], ix[1], ix[2], ix[3], ix[4], ix[5]);
@@ -145,11 +134,6 @@ int main()
                     flag = 1;
                 } else if (pt == 7 && s[it] == ')' && flag) {
                     ix[pt] = atof(s1);
-                    for (i = 0; i < 8; i += 2) {
-                        xt[jp] = ix[i];
-                        yt[jp] = ix[i + 1];
-                        jp++;
-                    }
                     pt++;
                     flag = 0;
                     polygone(
