@@ -6,5 +6,4 @@ compiler: gcc
 env:
 - TARGET_CPU=amd64 BUILD_CONFIGURATION=Release
 script:
-  - git ls-files src/ | xargs clang-format -i && git diff --exit-code
-    - make
+  - git ls-files src/ | xargs clang-format -i && git diff --exit-code && make
