@@ -2,8 +2,8 @@
 CC=gcc
 CFLAGS=-Wall -Werror
 SD=~/geometry/src/
-OD=~/geometry/bin/
-EXECUTABLE=~/geometry/build/geometry.exe
+OD=~/geometry/build/
+EXECUTABLE=~/geometry/bin/geometry.exe
 all: $(EXECUTABLE)
 	
 $(EXECUTABLE): $(OD)figures.o $(OD)main.o 
