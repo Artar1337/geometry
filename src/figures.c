@@ -28,7 +28,9 @@ int triangle(float x1, float y1, float x2, float y2, float x3, float y3)
     p = (a + b + c) / 2;
     s = sqrt(p * (p - a) * (p - b) * (p - c));
     if (s > 0.00001)
-        printf("%d. Triangle(%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6.2f)\nPerimetr = "
+        printf("%d. "
+               "Triangle(%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6.2f)"
+               "\nPerimetr = "
                "%f\nArea = %f\n",
                n,
                x1,
@@ -37,6 +39,8 @@ int triangle(float x1, float y1, float x2, float y2, float x3, float y3)
                y2,
                x3,
                y3,
+               x1,
+               y1,
                p * 2,
                s);
     else {
@@ -84,7 +88,8 @@ int polygone(
     }
     s += z;
     printf("%d. "
-           "Polygone(%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6.2f)"
+           "Polygone(%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6."
+           "2f)"
            "\nPerimetr = %f\nArea = %f\n",
            n,
            x1,
@@ -95,6 +100,8 @@ int polygone(
            y3,
            x4,
            y4,
+           x1,
+           y1,
            per,
            s);
     return 1;
