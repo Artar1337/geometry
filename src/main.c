@@ -12,8 +12,8 @@ const char A[] = "circle(", B[] = "triangle(", C[] = "polygone(";
 int main()
 {
     int i, ic = 7, pc = 0, kc = 7, jc = 0, it = 9, jt = 0, kt = 9, pt = 0,
-           jp = 0, flag = 0, count[3] = {0, 0, 0};
-    float r, rad[N], ix[10], xc[N], yc[N], xt[3 * N], yt[3 * N], xp[4 * N],
+           jp = 0, flag = 0, count[3] = {0, 0, 0}, iu = 0;
+    float r, c, rad[N], ix[10], xc[N], yc[N], xt[3 * N], yt[3 * N], xp[4 * N],
             yp[4 * N];
     char s[80], s1[80] = {0}, exit[] = "exit", emp[] = "\0";
     printf("Input data in type: "
@@ -117,8 +117,11 @@ int main()
                     if ((ix[0] - 0.001 <= ix[6]) && (ix[1] - 0.001 <= ix[7])
                         && (ix[6] - 0.001 <= ix[0])
                         && (ix[7] - 0.001 <= ix[1])) {
-                        if (triangle(ix[0], ix[1], ix[2], ix[3], ix[4], ix[5]))
+                        if (triangle(
+                                    ix[0], ix[1], ix[2], ix[3], ix[4], ix[5])) {
                             count[1]++;
+                            Intersects(2, rad, xc, yc, xt, yt, xp, yp, count);
+                        }
                     } else {
                         printf("Wrong data type! Try again.\n");
                         flag = 0;
@@ -174,8 +177,10 @@ int main()
                                     ix[4],
                                     ix[5],
                                     ix[6],
-                                    ix[7]))
+                                    ix[7])) {
                             count[2]++;
+                            Intersects(3, rad, xc, yc, xt, yt, xp, yp, count);
+                        }
                     } else {
                         printf("Wrong data type! Try again.\n");
                         flag = 0;
