@@ -34,4 +34,13 @@ int IntersectTC(
         int count[]);
 int IntersectTT(float xt[], float yt[], int count[]);
 int IntersectTP(float xt[], float yt[], float xp[], float yp[], int count[]);
+int IntersectPC(
+        float rad[],
+        float xc[],
+        float yc[],
+        float xp[],
+        float yp[],
+        int count[]);
+int IntersectPT(float xt[], float yt[], float xp[], float yp[], int count[]);
+int IntersectPP(float xp[], float yp[], int count[]);
 #endif
