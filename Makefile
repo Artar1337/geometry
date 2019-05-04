@@ -14,6 +14,5 @@ $(OD)main.o: $(SD)main.c
 	$(CC) $(CFLAGS) -c -o $(OD)main.o $(SD)main.c -lm
 $(OD)intersects.o: $(SD)intersects.c
 	$(CC) $(CFLAGS) -c -o $(OD)intersects.o $(SD)intersects.c -lm
-
 clean:
 	rm -rf $(EXECUTABLE) $(OD)*.o
