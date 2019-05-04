@@ -988,4 +988,3 @@ void PrintIntersects(
     }
     free(ind);
 }
-
