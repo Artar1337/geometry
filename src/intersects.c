@@ -1,11 +1,22 @@
 #include "intersects.h"
 #include <math.h>
 #include <stdio.h>
-
-int IntersectCC(float rad[], float xc[], float yc[], int count[])
+#include <stdlib.h>
+extern* ret;
+extern const n;
+extern const N;
+int IntersectCC(float rad[], float xc[], float yc[], int count[], int type[])
 {
-    int flag = 0, z = count[0] - 2;
+    int i, j = 0, flag = 0, z = count[0] - 2, ind[n];
     float c;
+    for (i = 0; i < n - 1; i++)
+        if (type[i] == 1) {
+            ind[j] = i;
+            j++;
+        }
+    ind[i] = -1;
+    i = 0;
+    j = 0;
     while (z >= 0) {
         c = sqrt(
                 ((xc[z] - xc[count[0] - 1]) * (xc[z] - xc[count[0] - 1]))
@@ -16,16 +27,15 @@ int IntersectCC(float rad[], float xc[], float yc[], int count[])
         }
         if (c <= rad[count[0] - 1] || c <= rad[z]) {
             flag = 1;
-            printf("%d. Circle(%6.2f,%6.2f,%6.2f)\n",
-                   z + 1,
-                   xc[z],
-                   yc[z],
-                   rad[z]);
+            // printf("%d. Circle(%6.2f,%6.2f,%6.2f)\n",z+1,xc[z],yc[z],rad[z]);
+            ret[j] = ind[i];
+            j++;
         }
+        i++;
         z--;
     }
     if (flag)
-        return 1;
+        return j;
     else
         return 0;
 }
@@ -36,14 +46,22 @@ int IntersectCT(
         float yc[],
         float xt[],
         float yt[],
-        int count[])
+        int count[],
+        int type[])
 {
-    int z = count[0] - 1, i, j, flag = 0, flg = 0, f = 1;
+    int z = count[0] - 1, i, j, flag = 0, flg = 0, f = 1, jn = 0, in, ind[n];
     float A, b, B, C, y1, y2, x1, x2, D, k, ymax, ymin, xmax, xmin;
     A = -2 * xc[z];
     B = -2 * yc[z];
     C = xc[z] * xc[z] + yc[z] * yc[z] - rad[z] * rad[z];
-
+    for (in = 0; in < n; in++) {
+        if (type[in] == 2) {
+            ind[jn] = in;
+            jn++;
+        }
+    }
+    in = 0;
+    jn = 0;
     for (i = 1; i <= count[1]; i++) // vibor treygolnika
     {
         for (j = i * 3 - 3; j <= i * 3 - 1; j++) // vibor otrezka
@@ -99,7 +117,6 @@ int IntersectCT(
                     y1 = (-B + sqrt(D)) / 2;
                     y2 = (-B - sqrt(D)) / 2;
                 }
-                // printf("D=%6.2f,k=%6.2f,b=%6.2f,x1=%6.2f,x2=%6.2f,y1=%6.2f,y2=%6.2f",D,k,b,x1,x2,y1,y2);
                 if (x1 >= xmin && x1 <= xmax && y1 <= ymax && y1 >= ymin) {
                     flag = 1;
                     break;
@@ -121,25 +138,18 @@ int IntersectCT(
             }
         }
         if (flag) {
-            printf("%d. "
-                   "Triangle(%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6.2f)"
-                   "\n",
-                   i,
-                   xt[i * 3 - 3],
-                   yt[i * 3 - 3],
-                   xt[i * 3 - 2],
-                   yt[i * 3 - 2],
-                   xt[i * 3 - 1],
-                   yt[i * 3 - 1],
-                   xt[i * 3 - 3],
-                   yt[i * 3 - 3]);
+            // printf("%d.
+            // Triangle(%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6.2f)\n",i,xt[i*3-3],yt[i*3-3],xt[i*3-2],yt[i*3-2],xt[i*3-1],yt[i*3-1],xt[i*3-3],yt[i*3-3]);
             flg = 1;
             flag = 0;
+            ret[jn] = ind[in];
+            jn++;
         }
+        in++;
     }
 
     if (flg)
-        return 1;
+        return jn;
     else
         return 0;
 }
@@ -150,14 +160,22 @@ int IntersectCP(
         float yc[],
         float xp[],
         float yp[],
-        int count[])
+        int count[],
+        int type[])
 {
-    int z = count[0] - 1, i, j, flag = 0, flg = 0, f = 1;
+    int z = count[0] - 1, i, j, flag = 0, flg = 0, f = 1, jn = 0, in, ind[n];
     float A, b, B, C, y1, y2, x1, x2, D, k, ymax, ymin, xmax, xmin;
     A = -2 * xc[z];
     B = -2 * yc[z];
     C = xc[z] * xc[z] + yc[z] * yc[z] - rad[z] * rad[z];
-
+    for (in = 0; in < n; in++) {
+        if (type[in] == 3) {
+            ind[jn] = in;
+            jn++;
+        }
+    }
+    in = 0;
+    jn = 0;
     for (i = 1; i <= count[2]; i++) // vibor polygona
     {
         for (j = i * 4 - 4; j <= i * 4 - 1; j++) // vibor otrezka
@@ -234,27 +252,18 @@ int IntersectCP(
             }
         }
         if (flag) {
-            printf("%d. "
-                   "Polygone(%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%"
-                   "6.2f,%6.2f)\n",
-                   i,
-                   xp[i * 4 - 4],
-                   yp[i * 4 - 4],
-                   xp[i * 4 - 3],
-                   yp[i * 4 - 3],
-                   xp[i * 4 - 2],
-                   yp[i * 4 - 2],
-                   xp[i * 4 - 1],
-                   yp[i * 4 - 1],
-                   xp[i * 4 - 4],
-                   yp[i * 4 - 4]);
+            // printf("%d.
+            // Polygone(%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6.2f)\n",i,xp[i*4-4],yp[i*4-4],xp[i*4-3],yp[i*4-3],xp[i*4-2],yp[i*4-2],xp[i*4-1],yp[i*4-1],xp[i*4-4],yp[i*4-4]);
             flg = 1;
             flag = 0;
+            ret[jn] = ind[in];
+            jn++;
         }
+        in++;
     }
 
     if (flg)
-        return 1;
+        return jn;
     else
         return 0;
 }
@@ -265,10 +274,19 @@ int IntersectTC(
         float yc[],
         float xt[],
         float yt[],
-        int count[])
+        int count[],
+        int type[])
 {
-    int z, i = count[1], j, flag = 0, flg = 0, f = 1;
+    int z, i = count[1], j, flag = 0, flg = 0, f = 1, jn = 0, in, ind[n];
     float A, b, B, C, y1, y2, x1, x2, D, k, ymax, ymin, xmax, xmin;
+    for (in = 0; in < n; in++) {
+        if (type[in] == 1) {
+            ind[jn] = in;
+            jn++;
+        }
+    }
+    in = 0;
+    jn = 0;
     for (z = 0; z < count[0]; z++) // vibor kryga
     {
         A = -2 * xc[z];
@@ -349,26 +367,34 @@ int IntersectTC(
             }
         }
         if (flag) {
-            printf("%d. Circle(%6.2f,%6.2f,%6.2f)\n",
-                   z + 1,
-                   xc[z],
-                   yc[z],
-                   rad[z]);
+            // printf("%d. Circle(%6.2f,%6.2f,%6.2f)\n",z+1,xc[z],yc[z],rad[z]);
             flg = 1;
             flag = 0;
+            ret[jn] = ind[in];
+            jn++;
         }
+        in++;
     }
 
     if (flg)
-        return 1;
+        return jn;
     else
         return 0;
 }
 
-int IntersectTT(float xt[], float yt[], int count[])
+int IntersectTT(float xt[], float yt[], int count[], int type[])
 {
-    int i = count[1], p, c = 1, j, flag = 0, flg = 0;
+    int i = count[1], p, c = 1, j, flag = 0, flg = 0, jn = 0, in, ind[n];
     float c1, z1, c2, z2, y1, y2, y3, y4, x1, x2, x3, x4, k1, k2, temp;
+
+    for (in = 0; in < n; in++) {
+        if (type[in] == 2) {
+            ind[jn] = in;
+            jn++;
+        }
+    }
+    in = 0;
+    jn = 0;
     for (c = 1; c < count[1]; c++) // vibor sravnivaemogo treyga
     {
         for (j = i * 3 - 3; j <= i * 3 - 1;
@@ -413,34 +439,36 @@ int IntersectTT(float xt[], float yt[], int count[])
                 }
             }
             if (flag) {
-                printf("%d. "
-                       "Triangle(%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6."
-                       "2f)\n",
-                       c,
-                       xt[c * 3 - 3],
-                       yt[c * 3 - 3],
-                       xt[c * 3 - 2],
-                       yt[c * 3 - 2],
-                       xt[c * 3 - 1],
-                       yt[c * 3 - 1],
-                       xt[c * 3 - 3],
-                       yt[c * 3 - 3]);
+                // printf("%d.
+                // Triangle(%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6.2f)\n",c,xt[c*3-3],yt[c*3-3],xt[c*3-2],yt[c*3-2],xt[c*3-1],yt[c*3-1],xt[c*3-3],yt[c*3-3]);
                 flg = 1;
                 flag = 0;
+                ret[jn] = ind[in];
+                jn++;
                 break;
             }
         }
+        in++;
     }
     if (flg)
-        return 1;
+        return jn;
     else
         return 0;
 }
 
-int IntersectTP(float xt[], float yt[], float xp[], float yp[], int count[])
+int IntersectTP(
+        float xt[], float yt[], float xp[], float yp[], int count[], int type[])
 {
-    int i = count[1], p, c = 1, j, flag = 0, flg = 0;
+    int i = count[1], p, c = 1, j, flag = 0, flg = 0, jn = 0, in, ind[n];
     float c1, z1, c2, z2, y1, y2, y3, y4, x1, x2, x3, x4, k1, k2, temp;
+    for (in = 0; in < n; in++) {
+        if (type[in] == 3) {
+            ind[jn] = in;
+            jn++;
+        }
+    }
+    in = 0;
+    jn = 0;
     for (c = 1; c <= count[2]; c++) // vibor sravnivaemogo polygona
     {
         for (j = i * 3 - 3; j <= i * 3 - 1;
@@ -485,28 +513,20 @@ int IntersectTP(float xt[], float yt[], float xp[], float yp[], int count[])
                 }
             }
             if (flag) {
-                printf("%d. "
-                       "Polygone(%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6."
-                       "2f,%6.2f,%6.2f)\n",
-                       c,
-                       xp[c * 4 - 4],
-                       yp[c * 4 - 4],
-                       xp[c * 4 - 3],
-                       yp[c * 4 - 3],
-                       xp[c * 4 - 2],
-                       yp[c * 4 - 2],
-                       xp[c * 4 - 1],
-                       yp[c * 4 - 1],
-                       xp[c * 4 - 4],
-                       yp[c * 4 - 4]);
+                // printf("%d.
+                // Polygone(%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6.2f)\n",c,xp[c*4-4],yp[c*4-4],xp[c*4-3],yp[c*4-3],xp[c*4-2],yp[c*4-2],xp[c*4-1],yp[c*4-1],xp[c*4-4],yp[c*4-4]);
                 flg = 1;
                 flag = 0;
+                ret[jn] = ind[in];
+                jn++;
+
                 break;
             }
         }
+        in++;
     }
     if (flg)
-        return 1;
+        return jn;
     else
         return 0;
 }
@@ -517,10 +537,19 @@ int IntersectPC(
         float yc[],
         float xp[],
         float yp[],
-        int count[])
+        int count[],
+        int type[])
 {
-    int z, i = count[2], j, flag = 0, flg = 0, f = 1;
+    int z, i = count[2], j, flag = 0, flg = 0, f = 1, jn = 0, in, ind[n];
     float A, b, B, C, y1, y2, x1, x2, D, k, ymax, ymin, xmax, xmin;
+    for (in = 0; in < n; in++) {
+        if (type[in] == 1) {
+            ind[jn] = in;
+            jn++;
+        }
+    }
+    in = 0;
+    jn = 0;
     for (z = 0; z < count[0]; z++) // vibor kryga
     {
         A = -2 * xc[z];
@@ -601,26 +630,34 @@ int IntersectPC(
             }
         }
         if (flag) {
-            printf("%d. Circle(%6.2f,%6.2f,%6.2f)\n",
-                   z + 1,
-                   xc[z],
-                   yc[z],
-                   rad[z]);
+            // printf("%d. Circle(%6.2f,%6.2f,%6.2f)\n",z+1,xc[z],yc[z],rad[z]);
             flg = 1;
             flag = 0;
+            ret[jn] = ind[in];
+            jn++;
         }
+        in++;
     }
 
     if (flg)
-        return 1;
+        return jn;
     else
         return 0;
 }
 
-int IntersectPT(float xt[], float yt[], float xp[], float yp[], int count[])
+int IntersectPT(
+        float xt[], float yt[], float xp[], float yp[], int count[], int type[])
 {
-    int i = count[2], p, c = 1, j, flag = 0, flg = 0;
+    int i = count[2], p, c = 1, j, flag = 0, flg = 0, jn = 0, in, ind[n];
     float c1, z1, c2, z2, y1, y2, y3, y4, x1, x2, x3, x4, k1, k2, temp;
+    for (in = 0; in < n; in++) {
+        if (type[in] == 2) {
+            ind[jn] = in;
+            jn++;
+        }
+    }
+    in = 0;
+    jn = 0;
     for (c = 1; c <= count[1]; c++) // vibor sravnivaemogo treyga
     {
         for (j = i * 4 - 4; j <= i * 4 - 1;
@@ -665,34 +702,36 @@ int IntersectPT(float xt[], float yt[], float xp[], float yp[], int count[])
                 }
             }
             if (flag) {
-                printf("%d. "
-                       "Triangle(%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6."
-                       "2f)\n",
-                       c,
-                       xt[c * 3 - 3],
-                       yt[c * 3 - 3],
-                       xt[c * 3 - 2],
-                       yt[c * 3 - 2],
-                       xt[c * 3 - 1],
-                       yt[c * 3 - 1],
-                       xt[c * 3 - 3],
-                       yt[c * 3 - 3]);
+                // printf("%d.
+                // Triangle(%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6.2f)\n",c,xt[c*3-3],yt[c*3-3],xt[c*3-2],yt[c*3-2],xt[c*3-1],yt[c*3-1],xt[c*3-3],yt[c*3-3]);
                 flg = 1;
                 flag = 0;
+                ret[jn] = ind[in];
+                jn++;
+
                 break;
             }
         }
+        in++;
     }
     if (flg)
-        return 1;
+        return jn;
     else
         return 0;
 }
 
-int IntersectPP(float xp[], float yp[], int count[])
+int IntersectPP(float xp[], float yp[], int count[], int type[])
 {
-    int i = count[2], p, c = 1, j, flag = 0, flg = 0;
+    int i = count[2], p, c = 1, j, flag = 0, flg = 0, jn = 0, in, ind[n];
     float c1, z1, c2, z2, y1, y2, y3, y4, x1, x2, x3, x4, k1, k2, temp;
+    for (in = 0; in < n; in++) {
+        if (type[in] == 3) {
+            ind[jn] = in;
+            jn++;
+        }
+    }
+    in = 0;
+    jn = 0;
     for (c = 1; c < count[2]; c++) // vibor sravnivaemogo polygona
     {
         for (j = i * 4 - 4; j <= i * 4 - 1;
@@ -737,34 +776,26 @@ int IntersectPP(float xp[], float yp[], int count[])
                 }
             }
             if (flag) {
-                printf("%d. "
-                       "Polygone(%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6."
-                       "2f,%6.2f,%6.2f)\n",
-                       c,
-                       xp[c * 4 - 4],
-                       yp[c * 4 - 4],
-                       xp[c * 4 - 3],
-                       yp[c * 4 - 3],
-                       xp[c * 4 - 2],
-                       yp[c * 4 - 2],
-                       xp[c * 4 - 1],
-                       yp[c * 4 - 1],
-                       xp[c * 4 - 4],
-                       yp[c * 4 - 4]);
+                // printf("%d.
+                // Polygone(%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6.2f)\n",c,xp[c*4-4],yp[c*4-4],xp[c*4-3],yp[c*4-3],xp[c*4-2],yp[c*4-2],xp[c*4-1],yp[c*4-1],xp[c*4-4],yp[c*4-4]);
                 flg = 1;
                 flag = 0;
+                ret[jn] = ind[in];
+                jn++;
+
                 break;
             }
         }
+        in++;
     }
     if (flg)
-        return 1;
+        return jn;
     else
         return 0;
 }
 
 int Intersects(
-        int type,
+        int ftype,
         float rad[],
         float xc[],
         float yc[],
@@ -772,57 +803,190 @@ int Intersects(
         float yt[],
         float xp[],
         float yp[],
-        int count[])
+        int count[],
+        int type[])
 {
-    int flag = 0;
-    printf("\nIntersects:\n");
-    if (type == 1) // circle
+    int i, j = 0, flag = 0, r[N];
+    for (i = 0; i < N; i++)
+        ret[i] = r[i] = -1;
+
+    if (ftype == 1) // circle
     {
         if (count[0] - 1 > 0) {
-            if (IntersectCC(rad, xc, yc, count))
+            if (IntersectCC(rad, xc, yc, count, type))
                 flag = 1;
+            i = 0;
+            while (ret[i] >= 0) {
+                r[j] = ret[i];
+                ret[i] = -1;
+                i++;
+                j++;
+            }
         }
         if (count[1]) {
-            if (IntersectCT(rad, xc, yc, xt, yt, count))
+            if (IntersectCT(rad, xc, yc, xt, yt, count, type))
                 flag = 1;
+            i = 0;
+            while (ret[i] >= 0) {
+                r[j] = ret[i];
+                ret[i] = -1;
+                i++;
+                j++;
+            }
         }
         if (count[2]) {
-            if (IntersectCP(rad, xc, yc, xp, yp, count))
+            if (IntersectCP(rad, xc, yc, xp, yp, count, type))
                 flag = 1;
+            i = 0;
+            while (ret[i] >= 0) {
+                r[j] = ret[i];
+                ret[i] = -1;
+                i++;
+                j++;
+            }
         }
-    } else if (type == 2) // triangle
+    } else if (ftype == 2) // triangle
     {
         if (count[0]) {
-            if (IntersectTC(rad, xc, yc, xt, yt, count))
+            if (IntersectTC(rad, xc, yc, xt, yt, count, type))
                 flag = 1;
+            i = 0;
+            while (ret[i] >= 0) {
+                r[j] = ret[i];
+                ret[i] = -1;
+                i++;
+                j++;
+            }
         }
         if (count[1] - 1 > 0) {
-            if (IntersectTT(xt, yt, count))
+            if (IntersectTT(xt, yt, count, type))
                 flag = 1;
+            i = 0;
+            while (ret[i] >= 0) {
+                r[j] = ret[i];
+                ret[i] = -1;
+                i++;
+                j++;
+            }
         }
         if (count[2]) {
-            if (IntersectTP(xt, yt, xp, yp, count))
+            if (IntersectTP(xt, yt, xp, yp, count, type))
                 flag = 1;
+            i = 0;
+            while (ret[i] >= 0) {
+                r[j] = ret[i];
+                ret[i] = -1;
+                i++;
+                j++;
+            }
         }
-    } else if (type == 3) // polygone
+    } else if (ftype == 3) // polygone
     {
         if (count[0]) {
-            if (IntersectPC(rad, xc, yc, xp, yp, count))
+            if (IntersectPC(rad, xc, yc, xp, yp, count, type))
                 flag = 1;
+            i = 0;
+            while (ret[i] >= 0) {
+                r[j] = ret[i];
+                ret[i] = -1;
+                i++;
+                j++;
+            }
         }
         if (count[1]) {
-            if (IntersectPT(xt, yt, xp, yp, count))
+            if (IntersectPT(xt, yt, xp, yp, count, type))
                 flag = 1;
+            i = 0;
+            while (ret[i] >= 0) {
+                r[j] = ret[i];
+                ret[i] = -1;
+                i++;
+                j++;
+            }
         }
         if (count[2] - 1 > 0) {
-            if (IntersectPP(xp, yp, count))
+            if (IntersectPP(xp, yp, count, type))
                 flag = 1;
+            i = 0;
+            while (ret[i] >= 0) {
+                r[j] = ret[i];
+                ret[i] = -1;
+                i++;
+                j++;
+            }
         }
     }
-    if (flag) {
-        return 1;
-    } else {
-        printf("none\n");
-        return 0;
-    }
+    for (i = 0; i < N; i++)
+        ret[i] = r[i];
+    return flag;
 }
+
+void PrintIntersects(
+        float rad[],
+        float xc[],
+        float yc[],
+        float xt[],
+        float yt[],
+        float xp[],
+        float yp[],
+        int type[])
+{
+    int i = 0, j, *ind, nn, temp, cn = 0, tn = 0, pn = 0;
+    while (ret[i] >= 0)
+        i++;
+    nn = i;
+    ind = (int*)malloc(nn * sizeof(int));
+    for (i = 0; i < nn; i++)
+        ind[i] = ret[i];
+    for (i = 0; i < nn - 1; i++) {
+        for (j = nn - 1; j > i; j--) {
+            if (ind[j] < ind[j - 1]) {
+                temp = ind[j];
+                ind[j] = ind[j - 1];
+                ind[j - 1] = temp;
+            }
+        }
+    }
+    for (i = 0; i < nn; i++) {
+        if (type[ind[i]] == 1) {
+            cn++;
+            printf("%d. Circle(%6.2f,%6.2f,%6.2f)\n",
+                   ind[i] + 1,
+                   xc[cn],
+                   yc[cn],
+                   rad[cn]);
+        } else if (type[ind[i]] == 2) {
+            tn++;
+            printf("%d. "
+                   "Triangle(%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6.2f)"
+                   "\n",
+                   ind[i] + 1,
+                   xt[tn * 3 - 3],
+                   yt[tn * 3 - 3],
+                   xt[tn * 3 - 2],
+                   yt[tn * 3 - 2],
+                   xt[tn * 3 - 1],
+                   yt[tn * 3 - 1],
+                   xt[tn * 3 - 3],
+                   yt[tn * 3 - 3]);
+        } else if (type[ind[i]] == 3) {
+            pn++;
+            printf("%d. "
+                   "Polygone(%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%"
+                   "6.2f,%6.2f)\n",
+                   ind[i] + 1,
+                   xp[pn * 4 - 4],
+                   yp[pn * 4 - 4],
+                   xp[pn * 4 - 3],
+                   yp[pn * 4 - 3],
+                   xp[pn * 4 - 2],
+                   yp[pn * 4 - 2],
+                   xp[pn * 4 - 1],
+                   yp[pn * 4 - 1],
+                   xp[pn * 4 - 4],
+                   yp[pn * 4 - 4]);
+        }
+    }
+    free(ind);
+}
+
