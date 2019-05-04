@@ -1,9 +1,9 @@
 .PHONY:all clean
-CC=gcc
+CC=g++
 CFLAGS=-Wall -Werror
-SD=~/geometry/src/
-OD=~/geometry/build/
-EXECUTABLE=~/geometry/bin/geometry.exe
+SD=geometry/src/
+OD=geometry/build/
+EXECUTABLE=geometry/bin/geometry.exe
 all: $(EXECUTABLE)
 	
 $(EXECUTABLE): $(OD)figures.o $(OD)main.o $(OD)intersects.o 
