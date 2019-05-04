@@ -1,18 +1,9 @@
-dist: trusty
+dist: xenial
 sudo: required
-
 language: cpp
-compiler: gcc
-
+compiler: g++
 addons:
-  apt:
-    sources:
-      - ubuntu-toolchain-r-test
-    packages:
-      - gcc-6
-      - g++-6
-      - cmake
-      - gcc -v && g++ -v && cmake --version
+  apt_packages:
+    - libsfml-dev
 script:
--ln -s /usr/bin/gcc-6 /usr/local/bin/gcc && sudo ln -s /usr/bin/g++-6 /usr/local/bin/g++
--git ls-files src/ | xargs clang-format -i && git diff --exit-code
+- git ls-files src/ | xargs clang-format -i && git diff --exit-code && make
