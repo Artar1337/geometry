@@ -3,19 +3,23 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-const int N = 10;
 int n = 0;
-
+const int N = 10;
+int* ret;
 const char A[] = "circle(", B[] = "triangle(", C[] = "polygone(";
 
 int main()
 {
     int i, ic = 7, pc = 0, kc = 7, jc = 0, it = 9, jt = 0, kt = 9, pt = 0,
-           jp = 0, flag = 0, count[3] = {0, 0, 0};
+           jp = 0, flag = 0, count[3] = {0, 0, 0}, type[N];
     float r, rad[N], ix[10], xc[N], yc[N], xt[3 * N], yt[3 * N], xp[4 * N],
             yp[4 * N];
+    ret = (int*)malloc(N * sizeof(int));
     char s[80], s1[80] = {0}, exit[] = "exit", emp[] = "\0";
+    for (i = 0; i < N; i++) {
+        type[i] = 0;
+        ret[i] = 0;
+    }
     printf("Input data in type: "
            "\n'circle(x,y,r)'\n'triangle(x1,y1,x2,y2,x3,y3,x1,y1)'\n'polygone("
            "x1,y1,x2,y2,x3,y3,x4,y4,x1,y1)'\nTo exit input 'exit'.\n");
@@ -59,7 +63,12 @@ int main()
                     jc++;
                     circle(ix[0], ix[1], r);
                     count[0]++;
-                    Intersects(1, rad, xc, yc, xt, yt, xp, yp, count);
+                    type[n - 1] = 1; // circle
+                    printf("\nIntersects:\n");
+                    if (Intersects(1, rad, xc, yc, xt, yt, xp, yp, count, type))
+                        PrintIntersects(rad, xc, yc, xt, yt, xp, yp, type);
+                    else
+                        printf("none\n");
                     pc = 0;
                     flag = 0;
                 } else if (
@@ -120,7 +129,23 @@ int main()
                         if (triangle(
                                     ix[0], ix[1], ix[2], ix[3], ix[4], ix[5])) {
                             count[1]++;
-                            Intersects(2, rad, xc, yc, xt, yt, xp, yp, count);
+                            type[n - 1] = 2; // triangle
+                            printf("\nIntersects:\n");
+                            if (Intersects(
+                                        2,
+                                        rad,
+                                        xc,
+                                        yc,
+                                        xt,
+                                        yt,
+                                        xp,
+                                        yp,
+                                        count,
+                                        type))
+                                PrintIntersects(
+                                        rad, xc, yc, xt, yt, xp, yp, type);
+                            else
+                                printf("none\n");
                         }
                     } else {
                         printf("Wrong data type! Try again.\n");
@@ -179,7 +204,23 @@ int main()
                                     ix[6],
                                     ix[7])) {
                             count[2]++;
-                            Intersects(3, rad, xc, yc, xt, yt, xp, yp, count);
+                            type[n - 1] = 3; // polygone
+                            printf("\nIntersects:\n");
+                            if (Intersects(
+                                        3,
+                                        rad,
+                                        xc,
+                                        yc,
+                                        xt,
+                                        yt,
+                                        xp,
+                                        yp,
+                                        count,
+                                        type))
+                                PrintIntersects(
+                                        rad, xc, yc, xt, yt, xp, yp, type);
+                            else
+                                printf("none\n");
                         }
                     } else {
                         printf("Wrong data type! Try again.\n");
@@ -203,5 +244,6 @@ int main()
             printf("Wrong data type! Try again.\n");
         }
     }
+    free(ret);
     return 0;
 }
