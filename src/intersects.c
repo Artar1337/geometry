@@ -2,9 +2,9 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
-extern* ret;
-extern const n;
-extern const N;
+extern int* ret;
+extern const int n;
+extern const int N;
 int IntersectCC(float rad[], float xc[], float yc[], int count[], int type[])
 {
     int i, j = 0, flag = 0, z = count[0] - 2, ind[n];
@@ -385,7 +385,7 @@ int IntersectTC(
 int IntersectTT(float xt[], float yt[], int count[], int type[])
 {
     int i = count[1], p, c = 1, j, flag = 0, flg = 0, jn = 0, in, ind[n];
-    float c1, z1, c2, z2, y1, y2, y3, y4, x1, x2, x3, x4, k1, k2, temp;
+    float c1, z1, c2, z2, y1, y2, y3, y4, x1, x2, x3, x4, k1, k2;
 
     for (in = 0; in < n; in++) {
         if (type[in] == 2) {
@@ -460,7 +460,7 @@ int IntersectTP(
         float xt[], float yt[], float xp[], float yp[], int count[], int type[])
 {
     int i = count[1], p, c = 1, j, flag = 0, flg = 0, jn = 0, in, ind[n];
-    float c1, z1, c2, z2, y1, y2, y3, y4, x1, x2, x3, x4, k1, k2, temp;
+    float c1, z1, c2, z2, y1, y2, y3, y4, x1, x2, x3, x4, k1, k2;
     for (in = 0; in < n; in++) {
         if (type[in] == 3) {
             ind[jn] = in;
@@ -649,7 +649,7 @@ int IntersectPT(
         float xt[], float yt[], float xp[], float yp[], int count[], int type[])
 {
     int i = count[2], p, c = 1, j, flag = 0, flg = 0, jn = 0, in, ind[n];
-    float c1, z1, c2, z2, y1, y2, y3, y4, x1, x2, x3, x4, k1, k2, temp;
+    float c1, z1, c2, z2, y1, y2, y3, y4, x1, x2, x3, x4, k1, k2;
     for (in = 0; in < n; in++) {
         if (type[in] == 2) {
             ind[jn] = in;
@@ -723,7 +723,7 @@ int IntersectPT(
 int IntersectPP(float xp[], float yp[], int count[], int type[])
 {
     int i = count[2], p, c = 1, j, flag = 0, flg = 0, jn = 0, in, ind[n];
-    float c1, z1, c2, z2, y1, y2, y3, y4, x1, x2, x3, x4, k1, k2, temp;
+    float c1, z1, c2, z2, y1, y2, y3, y4, x1, x2, x3, x4, k1, k2;
     for (in = 0; in < n; in++) {
         if (type[in] == 3) {
             ind[jn] = in;
