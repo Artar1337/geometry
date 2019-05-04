@@ -12,8 +12,8 @@ const char A[] = "circle(", B[] = "triangle(", C[] = "polygone(";
 int main()
 {
     int i, ic = 7, pc = 0, kc = 7, jc = 0, it = 9, jt = 0, kt = 9, pt = 0,
-           jp = 0, flag = 0, count[3] = {0, 0, 0}, iu = 0;
-    float r, c, rad[N], ix[10], xc[N], yc[N], xt[3 * N], yt[3 * N], xp[4 * N],
+           jp = 0, flag = 0, count[3] = {0, 0, 0};
+    float r, rad[N], ix[10], xc[N], yc[N], xt[3 * N], yt[3 * N], xp[4 * N],
             yp[4 * N];
     char s[80], s1[80] = {0}, exit[] = "exit", emp[] = "\0";
     printf("Input data in type: "

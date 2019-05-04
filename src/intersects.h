@@ -1,7 +1,7 @@
 #ifndef INTER_GUARD
 #define INTER_GUARD
 int Intersects(
-        int type,
+        int ftype,
         float rad[],
         float xc[],
         float yc[],
@@ -9,38 +9,64 @@ int Intersects(
         float yt[],
         float xp[],
         float yp[],
-        int count[]);
-int IntersectCC(float rad[], float xc[], float yc[], int count[]);
+        int count[],
+        int type[]);
+int IntersectCC(float rad[], float xc[], float yc[], int count[], int type[]);
 int IntersectCT(
         float rad[],
         float xc[],
         float yc[],
         float xt[],
         float yt[],
-        int count[]);
+        int count[],
+        int type[]);
 int IntersectCP(
         float rad[],
         float xc[],
         float yc[],
         float xp[],
         float yp[],
-        int count[]);
+        int count[],
+        int type[]);
 int IntersectTC(
         float rad[],
         float xc[],
         float yc[],
         float xt[],
         float yt[],
-        int count[]);
-int IntersectTT(float xt[], float yt[], int count[]);
-int IntersectTP(float xt[], float yt[], float xp[], float yp[], int count[]);
+        int count[],
+        int type[]);
+int IntersectTT(float xt[], float yt[], int count[], int type[]);
+int IntersectTP(
+        float xt[],
+        float yt[],
+        float xp[],
+        float yp[],
+        int count[],
+        int type[]);
 int IntersectPC(
         float rad[],
         float xc[],
         float yc[],
         float xp[],
         float yp[],
-        int count[]);
-int IntersectPT(float xt[], float yt[], float xp[], float yp[], int count[]);
-int IntersectPP(float xp[], float yp[], int count[]);
+        int count[],
+        int type[]);
+int IntersectPT(
+        float xt[],
+        float yt[],
+        float xp[],
+        float yp[],
+        int count[],
+        int type[]);
+int IntersectPP(float xp[], float yp[], int count[], int type[]);
+void PrintIntersects(
+        float rad[],
+        float xc[],
+        float yc[],
+        float xt[],
+        float yt[],
+        float xp[],
+        float yp[],
+        int type[]);
 #endif
