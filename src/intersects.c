@@ -920,7 +920,6 @@ int Intersects(
         ret[i] = r[i];
     return flag;
 }
-
 void PrintIntersects(
         float rad[],
         float xc[],
