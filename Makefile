@@ -1,8 +1,10 @@
-.PHONY:all clean
+.PHONY:all clean test
 CC = gcc
 CFLAGS = -Wall -Werror
 SD = src/
 OD = build/
+TD = test/
+TEST = bin/testing.exe
 EXECUTABLE = bin/geometry.exe
 all: $(EXECUTABLE)
 	
@@ -14,5 +16,7 @@ $(OD)figures.o: $(SD)figures.c
 	$(CC) $(CFLAGS) -c -o $(OD)figures.o $(SD)figures.c -lm
 $(OD)intersects.o: $(SD)intersects.c
 	$(CC) $(CFLAGS) -c -o $(OD)intersects.o $(SD)intersects.c -lm
+test: $(TD)test.o
+	$(CC) $(CFLAGS) -c -o $(TD)test.o $(TD)test.c -lm
 clean:
-	rm -rf $(EXECUTABLE) $(OD)*.o
+	rm -rf $(EXECUTABLE) $(TEST) $(OD)*.o $(TD)*.o
