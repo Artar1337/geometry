@@ -1,11 +1,11 @@
 #include <ctest.h>
 #include <figures.h>
 #include <math.h>
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 const double PI = 3.14159265;
-int n=0;
-int *ret;
+int n = 0;
+int* ret;
 float circleP(float r)
 {
     return (2 * PI * r);
@@ -102,9 +102,10 @@ int IntersectCC(float rad[], float xc[], float yc[], int count[], int type[])
             z--;
             continue;
         }
-        if (fabs(c - rad[z]) < rad[count[0] - 1]+0.01 || fabs(c-rad[count[0]-1]) < rad[z]+0.01) {
+        if (fabs(c - rad[z]) < rad[count[0] - 1] + 0.01
+            || fabs(c - rad[count[0] - 1]) < rad[z] + 0.01) {
             flag = 1;
-             //printf("%d. Circle(%6.2f,%6.2f,%6.2f)\n",z+1,xc[z],yc[z],rad[z]);
+            // printf("%d. Circle(%6.2f,%6.2f,%6.2f)\n",z+1,xc[z],yc[z],rad[z]);
             ret[j] = ind[i];
             j++;
         }
@@ -206,7 +207,7 @@ int IntersectCT(
                 if (f) {
                     x1 = (-2 * B * k - A - B * k + sqrt(D)) / (2 * (1 + k * k));
                     y1 = k * x1 + b;
-                } 
+                }
                 if (x1 >= xmin && x1 <= xmax && y1 <= ymax && y1 >= ymin) {
                     flag = 1;
                     break;
@@ -214,7 +215,7 @@ int IntersectCT(
             }
         }
         if (flag) {
-            //printf("%d.Triangle(%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6.2f)\n",i,xt[i*3-3],yt[i*3-3],xt[i*3-2],yt[i*3-2],xt[i*3-1],yt[i*3-1],xt[i*3-3],yt[i*3-3]);
+            // printf("%d.Triangle(%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6.2f)\n",i,xt[i*3-3],yt[i*3-3],xt[i*3-2],yt[i*3-2],xt[i*3-1],yt[i*3-1],xt[i*3-3],yt[i*3-3]);
             flg = 1;
             flag = 0;
             ret[jn] = ind[in];
@@ -318,15 +319,15 @@ int IntersectCP(
                 if (f) {
                     x1 = (-2 * B * k - A - B * k + sqrt(D)) / (2 * (1 + k * k));
                     y1 = k * x1 + b;
-                } 
-               if (x1 >= xmin && x1 <= xmax && y1 <= ymax && y1 >= ymin) {
+                }
+                if (x1 >= xmin && x1 <= xmax && y1 <= ymax && y1 >= ymin) {
                     flag = 1;
                     break;
                 }
             }
         }
         if (flag) {
-           // printf("%d.Polygone(%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6.2f)\n",i,xp[i*4-4],yp[i*4-4],xp[i*4-3],yp[i*4-3],xp[i*4-2],yp[i*4-2],xp[i*4-1],yp[i*4-1],xp[i*4-4],yp[i*4-4]);
+            // printf("%d.Polygone(%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6.2f,%6.2f)\n",i,xp[i*4-4],yp[i*4-4],xp[i*4-3],yp[i*4-3],xp[i*4-2],yp[i*4-2],xp[i*4-1],yp[i*4-1],xp[i*4-4],yp[i*4-4]);
             flg = 1;
             flag = 0;
             ret[jn] = ind[in];
@@ -431,7 +432,7 @@ int IntersectTC(
                 if (f) {
                     x1 = (-2 * B * k - A - B * k + sqrt(D)) / (2 * (1 + k * k));
                     y1 = k * x1 + b;
-                } 
+                }
                 if (x1 >= xmin && x1 <= xmax && y1 <= ymax && y1 >= ymin) {
                     flag = 1;
                     break;
@@ -693,7 +694,7 @@ int IntersectPC(
                 if (f) {
                     x1 = (-2 * B * k - A - B * k + sqrt(D)) / (2 * (1 + k * k));
                     y1 = k * x1 + b;
-                } 
+                }
                 if (x1 >= xmin && x1 <= xmax && y1 <= ymax && y1 >= ymin) {
                     flag = 1;
                     break;
@@ -701,7 +702,7 @@ int IntersectPC(
             }
         }
         if (flag) {
-          // printf("%d. Circle(%6.2f,%6.2f,%6.2f)\n",z+1,xc[z],yc[z],rad[z]);
+            // printf("%d. Circle(%6.2f,%6.2f,%6.2f)\n",z+1,xc[z],yc[z],rad[z]);
             flg = 1;
             flag = 0;
             ret[jn] = ind[in];
@@ -915,24 +916,25 @@ CTEST(perimeter, triangle)
 
 CTEST(perimeter, polygone)
 {
-    float x1 = 0, y1 = 0, x2 = 1, y2 = 1, x3 = 2, y3 = 2,x4=1,y4=3;
-    float result = polygoneP(x1, y1, x2, y2, x3, y3,x4,y4);
+    float x1 = 0, y1 = 0, x2 = 1, y2 = 1, x3 = 2, y3 = 2, x4 = 1, y4 = 3;
+    float result = polygoneP(x1, y1, x2, y2, x3, y3, x4, y4);
     float expected = 7.40491834;
     ASSERT_DBL_NEAR(expected, result);
-    x1 = 1, y1 = 1, x2 = 2, y2 = 1, x3 = 2, y3 = 2,x4=1,y4=2;
-    result = polygoneP(x1, y1, x2, y2, x3, y3,x4,y4);
+    x1 = 1, y1 = 1, x2 = 2, y2 = 1, x3 = 2, y3 = 2, x4 = 1, y4 = 2;
+    result = polygoneP(x1, y1, x2, y2, x3, y3, x4, y4);
     expected = 4;
     ASSERT_DBL_NEAR(expected, result);
-    x1 = 2, y1 = 10.3, x2 = 2.66, y2 = 20, x3 = 5.5, y3 = 15.6,x4=4,y4=10.3;
-    result = polygoneP(x1, y1, x2, y2, x3, y3,x4,y4);
+    x1 = 2, y1 = 10.3, x2 = 2.66, y2 = 20, x3 = 5.5, y3 = 15.6, x4 = 4,
+    y4 = 10.3;
+    result = polygoneP(x1, y1, x2, y2, x3, y3, x4, y4);
     expected = 22.46754;
     ASSERT_DBL_NEAR(expected, result);
-    x1 = 0, y1 = 0, x2 = 0, y2 = 2, x3 = 2, y3 = 1,x4=1,y4=1;
-    result = polygoneP(x1, y1, x2, y2, x3, y3,x4,y4);
+    x1 = 0, y1 = 0, x2 = 0, y2 = 2, x3 = 2, y3 = 1, x4 = 1, y4 = 1;
+    result = polygoneP(x1, y1, x2, y2, x3, y3, x4, y4);
     expected = 6.65028153;
     ASSERT_DBL_NEAR(expected, result);
-    x1 = 1, y1 = 1, x2 = 1, y2 = 1, x3 = 1, y3 = 1,x4=1,y4=1;
-    result = polygoneP(x1, y1, x2, y2, x3, y3,x4,y4);
+    x1 = 1, y1 = 1, x2 = 1, y2 = 1, x3 = 1, y3 = 1, x4 = 1, y4 = 1;
+    result = polygoneP(x1, y1, x2, y2, x3, y3, x4, y4);
     expected = 0;
     ASSERT_DBL_NEAR(expected, result);
 }
@@ -988,54 +990,63 @@ CTEST(square, triangle)
 
 CTEST(square, polygone)
 {
-    float x1 = 0, y1 = 0, x2 = 0, y2 = 3, x3 = 0, y3 = 1,x4=0,y4=0;
-    float result = polygoneS(x1, y1, x2, y2, x3, y3,x4,y4);
+    float x1 = 0, y1 = 0, x2 = 0, y2 = 3, x3 = 0, y3 = 1, x4 = 0, y4 = 0;
+    float result = polygoneS(x1, y1, x2, y2, x3, y3, x4, y4);
     float expected = 0;
     ASSERT_DBL_NEAR(expected, result);
-    x1 = 1, y1 = 1, x2 = 2, y2 = 2, x3 = 3, y3 = 3,x4=6,y4=0;
-    result = polygoneS(x1, y1, x2, y2, x3, y3,x4,y4);
+    x1 = 1, y1 = 1, x2 = 2, y2 = 2, x3 = 3, y3 = 3, x4 = 6, y4 = 0;
+    result = polygoneS(x1, y1, x2, y2, x3, y3, x4, y4);
     expected = 0;
     ASSERT_DBL_NEAR(expected, result);
-    x1 = -2, y1 = -4, x2 = 0, y2 = -2, x3 = 1, y3 = -4,x4=1,y4=-5;
-    result = polygoneS(x1, y1, x2, y2, x3, y3,x4,y4);
+    x1 = -2, y1 = -4, x2 = 0, y2 = -2, x3 = 1, y3 = -4, x4 = 1, y4 = -5;
+    result = polygoneS(x1, y1, x2, y2, x3, y3, x4, y4);
     expected = 4.5;
     ASSERT_DBL_NEAR(expected, result);
-    x1 = -6.3, y1 = -0.34, x2 = 1, y2 = 4, x3 = 3.3, y3 = 4,x4=11.6,y4=-1;
-    result = polygoneS(x1, y1, x2, y2, x3, y3,x4,y4);
+    x1 = -6.3, y1 = -0.34, x2 = 1, y2 = 4, x3 = 3.3, y3 = 4, x4 = 11.6, y4 = -1;
+    result = polygoneS(x1, y1, x2, y2, x3, y3, x4, y4);
     expected = 47.002;
     ASSERT_DBL_NEAR(expected, result);
-    x1 = 1, y1 = 1, x2 = 2, y2 = 2, x3 = 3, y3 = 4,x4=0,y4=0;
-    result = polygoneS(x1, y1, x2, y2, x3, y3,x4,y4);
-    expected = 1 ;
+    x1 = 1, y1 = 1, x2 = 2, y2 = 2, x3 = 3, y3 = 4, x4 = 0, y4 = 0;
+    result = polygoneS(x1, y1, x2, y2, x3, y3, x4, y4);
+    expected = 1;
     ASSERT_DBL_NEAR(expected, result);
 }
 
 CTEST(intersection, circle_with_circles)
 {
-    ret=(int *) malloc(sizeof(int)*10);
-    n=9;
-    float xc[9]={0,1.9,-3,2.1,6,4,0,-4,0},yc[9]={0,2.1,0,2,2,0,4,3,0},rad[9]={1,0.07,2,1,1.1,1,1,0.5,3};
-    int count[3]={9,0,0},type[9]={1,1,1,1,1,1,1,1,1};
+    ret = (int*)malloc(sizeof(int) * 10);
+    n = 9;
+    float xc[9] = {0, 1.9, -3, 2.1, 6, 4, 0, -4, 0},
+          yc[9] = {0, 2.1, 0, 2, 2, 0, 4, 3, 0},
+          rad[9] = {1, 0.07, 2, 1, 1.1, 1, 1, 0.5, 3};
+    int count[3] = {9, 0, 0}, type[9] = {1, 1, 1, 1, 1, 1, 1, 1, 1};
     int result = IntersectCC(rad, xc, yc, count, type);
     int expected = 4;
     ASSERT_EQUAL(expected, result);
- n=7;
-     xc[0]=5;
-xc[1]=-2;
-xc[2]=2;
-xc[3]=0.5;
-xc[4]=-2.1;
-xc[5]=5;
-xc[6]=-1;
-yc[0]=3;
-yc[1]=2;
-yc[2]=1;
-yc[3]=0.5;
-yc[4]=-2.2;
-yc[5]=0;
-yc[6]=0;
-rad[0]=1;rad[1]=1;rad[2]=1.2;rad[3]=0.9;rad[4]=1.1;rad[5]=100;rad[6]=2.5;rad[7]=0;
-    count[0]=7;
+    n = 7;
+    xc[0] = 5;
+    xc[1] = -2;
+    xc[2] = 2;
+    xc[3] = 0.5;
+    xc[4] = -2.1;
+    xc[5] = 5;
+    xc[6] = -1;
+    yc[0] = 3;
+    yc[1] = 2;
+    yc[2] = 1;
+    yc[3] = 0.5;
+    yc[4] = -2.2;
+    yc[5] = 0;
+    yc[6] = 0;
+    rad[0] = 1;
+    rad[1] = 1;
+    rad[2] = 1.2;
+    rad[3] = 0.9;
+    rad[4] = 1.1;
+    rad[5] = 100;
+    rad[6] = 2.5;
+    rad[7] = 0;
+    count[0] = 7;
     result = IntersectCC(rad, xc, yc, count, type);
     expected = 3;
     ASSERT_EQUAL(expected, result);
@@ -1044,337 +1055,340 @@ rad[0]=1;rad[1]=1;rad[2]=1.2;rad[3]=0.9;rad[4]=1.1;rad[5]=100;rad[6]=2.5;rad[7]=
 
 CTEST(intersection, circle_with_triangles)
 {
-    ret=(int *) malloc(sizeof(int)*10);
-    n=6;
-    float xc[1]={0},yc[1]={0},rad[1]={2},xt[15]={1,-2,1,2,2,6.3,-1,-0.5,-2,-2,2,0,-100,-100,200},yt[15]={2,2,3,-1,2,-1.2,1,-0.8,-2,-3,-3,-4,100,-100,-90};
-    int count[3]={1,5,0},type[6]={2,2,2,2,2,1};
-    int result = IntersectCT(rad, xc, yc, xt,yt,count, type);
+    ret = (int*)malloc(sizeof(int) * 10);
+    n = 6;
+    float xc[1] = {0}, yc[1] = {0}, rad[1] = {2},
+          xt[15]
+            = {1, -2, 1, 2, 2, 6.3, -1, -0.5, -2, -2, 2, 0, -100, -100, 200},
+          yt[15]
+            = {2, 2, 3, -1, 2, -1.2, 1, -0.8, -2, -3, -3, -4, 100, -100, -90};
+    int count[3] = {1, 5, 0}, type[6] = {2, 2, 2, 2, 2, 1};
+    int result = IntersectCT(rad, xc, yc, xt, yt, count, type);
     int expected = 3;
     ASSERT_EQUAL(expected, result);
-n=4;
-type[3]=1;
-type[4]=0;
-type[5]=0;
-count[1]=3;
-rad[0]=3;
-xt[0]=-2;
-xt[1]=2;
-xt[2]=-2;
-yt[0]=2.2;
-yt[1]=-1.9;
-yt[2]=-1.9;
-xt[3]=3.01;
-xt[4]=3.01;
-xt[5]=4;
-yt[3]=0;
-yt[4]=1;
-yt[5]=0.3;
-xt[6]=-3.01;
-xt[7]=-3.01;
-xt[8]=-4;
-yt[6]=0;
-yt[7]=1;
-yt[8]=0.2;
-result = IntersectCT(rad, xc, yc, xt,yt,count, type);
-   expected = 0;
-ASSERT_EQUAL(expected, result);
+    n = 4;
+    type[3] = 1;
+    type[4] = 0;
+    type[5] = 0;
+    count[1] = 3;
+    rad[0] = 3;
+    xt[0] = -2;
+    xt[1] = 2;
+    xt[2] = -2;
+    yt[0] = 2.2;
+    yt[1] = -1.9;
+    yt[2] = -1.9;
+    xt[3] = 3.01;
+    xt[4] = 3.01;
+    xt[5] = 4;
+    yt[3] = 0;
+    yt[4] = 1;
+    yt[5] = 0.3;
+    xt[6] = -3.01;
+    xt[7] = -3.01;
+    xt[8] = -4;
+    yt[6] = 0;
+    yt[7] = 1;
+    yt[8] = 0.2;
+    result = IntersectCT(rad, xc, yc, xt, yt, count, type);
+    expected = 0;
+    ASSERT_EQUAL(expected, result);
     free(ret);
 }
 
 CTEST(intersection, circle_with_polygones)
 {
-    ret=(int *) malloc(sizeof(int)*10);
-    n=4;
-    float xc[1]={0},yc[1]={0},rad[1]={2},xp[12]={1,1,3,3,-2.02,-2.02,-4,-4,1,-1,-1,1},yp[12]={1,3,3,1,-1,1,1,-1,-2,-2,-4,-4};
-    int count[3]={1,0,3},type[4]={3,3,3,1};
-    int result = IntersectCP(rad, xc, yc, xp,yp,count, type);
+    ret = (int*)malloc(sizeof(int) * 10);
+    n = 4;
+    float xc[1] = {0}, yc[1] = {0}, rad[1] = {2},
+          xp[12] = {1, 1, 3, 3, -2.02, -2.02, -4, -4, 1, -1, -1, 1},
+          yp[12] = {1, 3, 3, 1, -1, 1, 1, -1, -2, -2, -4, -4};
+    int count[3] = {1, 0, 3}, type[4] = {3, 3, 3, 1};
+    int result = IntersectCP(rad, xc, yc, xp, yp, count, type);
     int expected = 2;
     ASSERT_EQUAL(expected, result);
-xp[0]=-4;
-xp[1]=-3;
-xp[2]=-3;
-xp[3]=-4;
-yp[0]=3;
-yp[1]=3;
-yp[2]=4;
-yp[3]=4;
-xp[4]=-1;
-xp[5]=1;
-xp[6]=1;
-xp[7]=-1;
-yp[4]=1;
-yp[5]=1;
-yp[6]=-1;
-yp[7]=-1;
-xp[8]=2;
-xp[9]=4;
-xp[10]=6;
-xp[11]=4;
-yp[8]=0;
-yp[9]=2;
-yp[10]=2;
-yp[11]=0;
+    xp[0] = -4;
+    xp[1] = -3;
+    xp[2] = -3;
+    xp[3] = -4;
+    yp[0] = 3;
+    yp[1] = 3;
+    yp[2] = 4;
+    yp[3] = 4;
+    xp[4] = -1;
+    xp[5] = 1;
+    xp[6] = 1;
+    xp[7] = -1;
+    yp[4] = 1;
+    yp[5] = 1;
+    yp[6] = -1;
+    yp[7] = -1;
+    xp[8] = 2;
+    xp[9] = 4;
+    xp[10] = 6;
+    xp[11] = 4;
+    yp[8] = 0;
+    yp[9] = 2;
+    yp[10] = 2;
+    yp[11] = 0;
 
-result = IntersectCP(rad, xc, yc, xp,yp,count, type);
-   expected = 1;
-ASSERT_EQUAL(expected, result);
+    result = IntersectCP(rad, xc, yc, xp, yp, count, type);
+    expected = 1;
+    ASSERT_EQUAL(expected, result);
     free(ret);
 }
 
 CTEST(intersection, triangle_with_circles)
 {
-    ret=(int *) malloc(sizeof(int)*10);
-    n=6;
-    float xc[5]={0,0,0,0,-1},yc[5]={1,-2.3,0,0,1},rad[5]={1,1.1,2,5,1.1},xt[3]={1,-1,0},yt[3]={0,2,0};
-    int count[3]={5,1,0},type[6]={1,1,1,1,1,2};
-    int result = IntersectTC(rad, xc, yc, xt,yt,count, type);
+    ret = (int*)malloc(sizeof(int) * 10);
+    n = 6;
+    float xc[5] = {0, 0, 0, 0, -1}, yc[5] = {1, -2.3, 0, 0, 1},
+          rad[5] = {1, 1.1, 2, 5, 1.1}, xt[3] = {1, -1, 0}, yt[3] = {0, 2, 0};
+    int count[3] = {5, 1, 0}, type[6] = {1, 1, 1, 1, 1, 2};
+    int result = IntersectTC(rad, xc, yc, xt, yt, count, type);
     int expected = 3;
     ASSERT_EQUAL(expected, result);
-xt[0]=0;
-xt[1]=3;
-xt[2]=0;
-yt[0]=0;
-yt[1]=0;
-yt[2]=3;
-    xc[0]=1;
-    yc[0]=1;
-xc[1]=1;
-    yc[1]=2;
-xc[2]=2;
-    yc[2]=2;
-xc[3]=-0.5;
-    yc[3]=2;
-xc[4]=4;
-    yc[4]=0;
-rad[0]=0.04;
-rad[1]=1;
-rad[2]=2;
-rad[3]=0.48;
-rad[4]=1;
-result = IntersectTC(rad, xc, yc, xt,yt,count, type);
-   expected = 3;
-ASSERT_EQUAL(expected, result);
+    xt[0] = 0;
+    xt[1] = 3;
+    xt[2] = 0;
+    yt[0] = 0;
+    yt[1] = 0;
+    yt[2] = 3;
+    xc[0] = 1;
+    yc[0] = 1;
+    xc[1] = 1;
+    yc[1] = 2;
+    xc[2] = 2;
+    yc[2] = 2;
+    xc[3] = -0.5;
+    yc[3] = 2;
+    xc[4] = 4;
+    yc[4] = 0;
+    rad[0] = 0.04;
+    rad[1] = 1;
+    rad[2] = 2;
+    rad[3] = 0.48;
+    rad[4] = 1;
+    result = IntersectTC(rad, xc, yc, xt, yt, count, type);
+    expected = 3;
+    ASSERT_EQUAL(expected, result);
     free(ret);
 }
 
 CTEST(intersection, triangle_with_triangles)
 {
-    ret=(int *) malloc(sizeof(int)*10);
-    n=5;
-    float xt[15]={1,1,3,2,2,1,4,4,5,1,2,3,2,2,6},yt[15]={1,3,1,5,4,4,1,3,4,0,-1,0,-2,6,1};
-    int count[3]={0,5,0},type[5]={2,2,2,2,2};
-    int result = IntersectTT(xt,yt,count, type);
+    ret = (int*)malloc(sizeof(int) * 10);
+    n = 5;
+    float xt[15] = {1, 1, 3, 2, 2, 1, 4, 4, 5, 1, 2, 3, 2, 2, 6},
+          yt[15] = {1, 3, 1, 5, 4, 4, 1, 3, 4, 0, -1, 0, -2, 6, 1};
+    int count[3] = {0, 5, 0}, type[5] = {2, 2, 2, 2, 2};
+    int result = IntersectTT(xt, yt, count, type);
     int expected = 4;
     ASSERT_EQUAL(expected, result);
-xt[0]=4;
-xt[1]=5;
-xt[2]=4.5;
-yt[0]=4;
-yt[1]=4;
-yt[2]=6;
-xt[3]=0.5;
-xt[4]=0.5;
-xt[5]=1;
-yt[3]=1;
-yt[4]=0.5;
-yt[5]=0.5;
-xt[6]=0;
-xt[7]=0;
-xt[8]=-2;
-yt[6]=1;
-yt[7]=3;
-yt[8]=2;
-xt[9]=1;
-xt[10]=2;
-xt[11]=3;
-yt[9]=0;
-yt[10]=-1;
-yt[11]=0;
-xt[12]=0;
-xt[13]=0;
-xt[14]=3;
-yt[12]=0;
-yt[13]=3;
-yt[14]=0;
-result = IntersectTT(xt,yt,count, type);
-expected = 2;
-ASSERT_EQUAL(expected, result);
+    xt[0] = 4;
+    xt[1] = 5;
+    xt[2] = 4.5;
+    yt[0] = 4;
+    yt[1] = 4;
+    yt[2] = 6;
+    xt[3] = 0.5;
+    xt[4] = 0.5;
+    xt[5] = 1;
+    yt[3] = 1;
+    yt[4] = 0.5;
+    yt[5] = 0.5;
+    xt[6] = 0;
+    xt[7] = 0;
+    xt[8] = -2;
+    yt[6] = 1;
+    yt[7] = 3;
+    yt[8] = 2;
+    xt[9] = 1;
+    xt[10] = 2;
+    xt[11] = 3;
+    yt[9] = 0;
+    yt[10] = -1;
+    yt[11] = 0;
+    xt[12] = 0;
+    xt[13] = 0;
+    xt[14] = 3;
+    yt[12] = 0;
+    yt[13] = 3;
+    yt[14] = 0;
+    result = IntersectTT(xt, yt, count, type);
+    expected = 2;
+    ASSERT_EQUAL(expected, result);
     free(ret);
 }
 
 CTEST(intersection, triangle_with_polygones)
 {
-    ret=(int *) malloc(sizeof(int)*10);
-    n=4;
-    float xt[3]={-2,0,2},yt[3]={0,3,0},xp[12]={2,2,4,4,1,1,2,2,-2,0,-2,-3},yp[12]={0,-2,-2,0,1,4,4,1,0,3,4,2};
-    int count[3]={0,1,3},type[4]={3,3,3,2};
-    int result = IntersectTP(xt,yt,xp,yp,count, type);
+    ret = (int*)malloc(sizeof(int) * 10);
+    n = 4;
+    float xt[3] = {-2, 0, 2}, yt[3] = {0, 3, 0},
+          xp[12] = {2, 2, 4, 4, 1, 1, 2, 2, -2, 0, -2, -3},
+          yp[12] = {0, -2, -2, 0, 1, 4, 4, 1, 0, 3, 4, 2};
+    int count[3] = {0, 1, 3}, type[4] = {3, 3, 3, 2};
+    int result = IntersectTP(xt, yt, xp, yp, count, type);
     int expected = 3;
     ASSERT_EQUAL(expected, result);
-xp[0]=-0.6;
-xp[1]=-0.6;
-xp[2]=0.3;
-xp[3]=0.7;
-yp[0]=0.5;
-yp[1]=0.7;
-yp[2]=1.1;
-yp[3]=0.8;
-xp[4]=10;
-xp[5]=10;
-xp[6]=11;
-xp[7]=11;
-yp[4]=10;
-yp[5]=11;
-yp[6]=11;
-yp[7]=10;
-xp[8]=-3.02;
-xp[9]=-3.02;
-xp[10]=3.02;
-xp[11]=3.02;
-yp[8]=-0.02;
-yp[9]=3.02;
-yp[10]=3.02;
-yp[11]=-0.02;
-result = IntersectTP(xt,yt,xp,yp,count, type);
-expected = 0;
-ASSERT_EQUAL(expected, result);
+    xp[0] = -0.6;
+    xp[1] = -0.6;
+    xp[2] = 0.3;
+    xp[3] = 0.7;
+    yp[0] = 0.5;
+    yp[1] = 0.7;
+    yp[2] = 1.1;
+    yp[3] = 0.8;
+    xp[4] = 10;
+    xp[5] = 10;
+    xp[6] = 11;
+    xp[7] = 11;
+    yp[4] = 10;
+    yp[5] = 11;
+    yp[6] = 11;
+    yp[7] = 10;
+    xp[8] = -3.02;
+    xp[9] = -3.02;
+    xp[10] = 3.02;
+    xp[11] = 3.02;
+    yp[8] = -0.02;
+    yp[9] = 3.02;
+    yp[10] = 3.02;
+    yp[11] = -0.02;
+    result = IntersectTP(xt, yt, xp, yp, count, type);
+    expected = 0;
+    ASSERT_EQUAL(expected, result);
     free(ret);
 }
 
 CTEST(intersection, polygone_with_circles)
 {
-    ret=(int *) malloc(sizeof(int)*10);
-    n=5;
-    float xc[4]={-2,2,-1,-4},yc[4]={2,0,1,3.1},rad[4]={100,1,0.02,1},xp[4]={0,2,0,-4},yp[4]={-1,0,2,3};
-    int count[3]={4,0,1},type[5]={1,1,1,1,3};
-    int result = IntersectPC(rad, xc, yc, xp,yp,count, type);
+    ret = (int*)malloc(sizeof(int) * 10);
+    n = 5;
+    float xc[4] = {-2, 2, -1, -4}, yc[4] = {2, 0, 1, 3.1},
+          rad[4] = {100, 1, 0.02, 1}, xp[4] = {0, 2, 0, -4},
+          yp[4] = {-1, 0, 2, 3};
+    int count[3] = {4, 0, 1}, type[5] = {1, 1, 1, 1, 3};
+    int result = IntersectPC(rad, xc, yc, xp, yp, count, type);
     int expected = 1;
     ASSERT_EQUAL(expected, result);
-xp[0]=1;
-xp[1]=1;
-xp[2]=2;
-xp[3]=2;
-yp[0]=1;
-yp[1]=2;
-yp[2]=2;
-yp[3]=1;
-    xc[0]=3;
-    yc[0]=1.5;
-xc[1]=1.5;
-yc[1]=0;
-xc[2]=1;
-    yc[2]=1;
-xc[3]=-6;
-    yc[3]=-3;
-rad[0]=0.97;
-rad[1]=0.97;
-rad[2]=6;
-rad[3]=1;
-result = IntersectTC(rad, xc, yc, xp,yp,count, type);
-   expected = 1;
-ASSERT_EQUAL(expected, result);
+    xp[0] = 1;
+    xp[1] = 1;
+    xp[2] = 2;
+    xp[3] = 2;
+    yp[0] = 1;
+    yp[1] = 2;
+    yp[2] = 2;
+    yp[3] = 1;
+    xc[0] = 3;
+    yc[0] = 1.5;
+    xc[1] = 1.5;
+    yc[1] = 0;
+    xc[2] = 1;
+    yc[2] = 1;
+    xc[3] = -6;
+    yc[3] = -3;
+    rad[0] = 0.97;
+    rad[1] = 0.97;
+    rad[2] = 6;
+    rad[3] = 1;
+    result = IntersectTC(rad, xc, yc, xp, yp, count, type);
+    expected = 1;
+    ASSERT_EQUAL(expected, result);
     free(ret);
 }
 
 CTEST(intersection, polygone_with_triangles)
 {
-    ret=(int *) malloc(sizeof(int)*10);
-    n=5;
-    float xt[9]={0,2,2,-1,-1,0,-1,-1,2},yt[9]={2,3,0,0,1,0,1,3,3},xp[4]={0,2,0,-1},yp[4]={0,0,2,1};
-    int count[3]={0,3,1},type[5]={2,2,2,3};
-    int result = IntersectPT(xt,yt,xp,yp,count, type);
+    ret = (int*)malloc(sizeof(int) * 10);
+    n = 5;
+    float xt[9] = {0, 2, 2, -1, -1, 0, -1, -1, 2},
+          yt[9] = {2, 3, 0, 0, 1, 0, 1, 3, 3}, xp[4] = {0, 2, 0, -1},
+          yp[4] = {0, 0, 2, 1};
+    int count[3] = {0, 3, 1}, type[5] = {2, 2, 2, 3};
+    int result = IntersectPT(xt, yt, xp, yp, count, type);
     int expected = 3;
     ASSERT_EQUAL(expected, result);
-xp[0]=0;
-xp[1]=0;
-xp[2]=1;
-xp[3]=1;
-yp[0]=0;
-yp[1]=2;
-yp[2]=2;
-yp[3]=0;
-xt[0]=-1;
-xt[1]=0;
-xt[2]=0;
-yt[0]=2;
-yt[1]=2;
-yt[2]=3;
-xt[3]=1.02;
-xt[4]=1.52;
-xt[5]=2;
-yt[3]=1;
-yt[4]=2;
-yt[5]=1.3;
-xt[6]=0;
-xt[7]=1;
-xt[8]=0.4;
-yt[6]=-0.02;
-yt[7]=-0.02;
-yt[8]=-5;
+    xp[0] = 0;
+    xp[1] = 0;
+    xp[2] = 1;
+    xp[3] = 1;
+    yp[0] = 0;
+    yp[1] = 2;
+    yp[2] = 2;
+    yp[3] = 0;
+    xt[0] = -1;
+    xt[1] = 0;
+    xt[2] = 0;
+    yt[0] = 2;
+    yt[1] = 2;
+    yt[2] = 3;
+    xt[3] = 1.02;
+    xt[4] = 1.52;
+    xt[5] = 2;
+    yt[3] = 1;
+    yt[4] = 2;
+    yt[5] = 1.3;
+    xt[6] = 0;
+    xt[7] = 1;
+    xt[8] = 0.4;
+    yt[6] = -0.02;
+    yt[7] = -0.02;
+    yt[8] = -5;
 
-
-result = IntersectPT(xt,yt,xp,yp,count, type);
-expected = 1;
-ASSERT_EQUAL(expected, result);
+    result = IntersectPT(xt, yt, xp, yp, count, type);
+    expected = 1;
+    ASSERT_EQUAL(expected, result);
     free(ret);
 }
-
 
 CTEST(intersection, polygone_with_polygones)
 {
-    ret=(int *) malloc(sizeof(int)*10);
-    n=4;
-    float xp[16]={-4,-4,-2,-2,0,0,2,2,2,2,4,4,-2,0,2,0},yp[16]={0,2,2,0,-2,0,0,-2,2,4,4,2,0,2,2,0};
-    int count[3]={0,0,4},type[4]={3,3,3,3};
-    int result = IntersectPP(xp,yp,count, type);
+    ret = (int*)malloc(sizeof(int) * 10);
+    n = 4;
+    float xp[16] = {-4, -4, -2, -2, 0, 0, 2, 2, 2, 2, 4, 4, -2, 0, 2, 0},
+          yp[16] = {0, 2, 2, 0, -2, 0, 0, -2, 2, 4, 4, 2, 0, 2, 2, 0};
+    int count[3] = {0, 0, 4}, type[4] = {3, 3, 3, 3};
+    int result = IntersectPP(xp, yp, count, type);
     int expected = 3;
     ASSERT_EQUAL(expected, result);
-xp[0]=-2;
-xp[1]=-2;
-xp[2]=-0.02;
-xp[3]=-0.02;
-yp[0]=2;
-yp[1]=4;
-yp[2]=4;
-yp[3]=2;
-xp[4]=2;
-xp[5]=2;
-xp[6]=3;
-xp[7]=3;
-yp[4]=0;
-yp[5]=5;
-yp[6]=5;
-yp[7]=0;
-xp[8]=-2;
-xp[9]=-2;
-xp[10]=10;
-xp[11]=10;
-yp[8]=-2;
-yp[9]=10;
-yp[10]=10;
-yp[11]=-2;
-xp[12]=0;
-xp[13]=0;
-xp[14]=2;
-xp[15]=2;
-yp[12]=0;
-yp[13]=2;
-yp[14]=2;
-yp[15]=0;
-result = IntersectPP(xp,yp,count, type);;
-expected = 1;
-ASSERT_EQUAL(expected, result);
+    xp[0] = -2;
+    xp[1] = -2;
+    xp[2] = -0.02;
+    xp[3] = -0.02;
+    yp[0] = 2;
+    yp[1] = 4;
+    yp[2] = 4;
+    yp[3] = 2;
+    xp[4] = 2;
+    xp[5] = 2;
+    xp[6] = 3;
+    xp[7] = 3;
+    yp[4] = 0;
+    yp[5] = 5;
+    yp[6] = 5;
+    yp[7] = 0;
+    xp[8] = -2;
+    xp[9] = -2;
+    xp[10] = 10;
+    xp[11] = 10;
+    yp[8] = -2;
+    yp[9] = 10;
+    yp[10] = 10;
+    yp[11] = -2;
+    xp[12] = 0;
+    xp[13] = 0;
+    xp[14] = 2;
+    xp[15] = 2;
+    yp[12] = 0;
+    yp[13] = 2;
+    yp[14] = 2;
+    yp[15] = 0;
+    result = IntersectPP(xp, yp, count, type);
+    ;
+    expected = 1;
+    ASSERT_EQUAL(expected, result);
     free(ret);
 }
-
-
-
-
-
-
-
-
-
-
-
 

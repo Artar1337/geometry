@@ -25,7 +25,8 @@ int IntersectCC(float rad[], float xc[], float yc[], int count[], int type[])
             z--;
             continue;
         }
-        if (fabs(c - rad[z]) < rad[count[0] - 1]+0.01 || fabs(c-rad[count[0]-1]) < rad[z]+0.01) {
+        if (fabs(c - rad[z]) < rad[count[0] - 1] + 0.01
+            || fabs(c - rad[count[0] - 1]) < rad[z] + 0.01) {
             flag = 1;
             // printf("%d. Circle(%6.2f,%6.2f,%6.2f)\n",z+1,xc[z],yc[z],rad[z]);
             ret[j] = ind[i];
@@ -243,7 +244,7 @@ int IntersectCP(
                 if (f) {
                     x1 = (-2 * B * k - A - B * k + sqrt(D)) / (2 * (1 + k * k));
                     y1 = k * x1 + b;
-                } 
+                }
                 if (x1 >= xmin && x1 <= xmax && y1 <= ymax && y1 >= ymin) {
                     flag = 1;
                     break;
@@ -357,7 +358,7 @@ int IntersectTC(
                 if (f) {
                     x1 = (-2 * B * k - A - B * k + sqrt(D)) / (2 * (1 + k * k));
                     y1 = k * x1 + b;
-                } 
+                }
                 if (x1 >= xmin && x1 <= xmax && y1 <= ymax && y1 >= ymin) {
                     flag = 1;
                     break;
@@ -619,8 +620,8 @@ int IntersectPC(
                 if (f) {
                     x1 = (-2 * B * k - A - B * k + sqrt(D)) / (2 * (1 + k * k));
                     y1 = k * x1 + b;
-                } 
-                    
+                }
+
                 if (x1 >= xmin && x1 <= xmax && y1 <= ymax && y1 >= ymin) {
                     flag = 1;
                     break;
