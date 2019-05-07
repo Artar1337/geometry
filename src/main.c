@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 int n = 0;
-const int N = 10;
+const int N = 100;
 int* ret;
 const char A[] = "circle(", B[] = "triangle(", C[] = "polygone(";
 
@@ -26,7 +26,12 @@ int main()
     while (1) {
         printf("\nInput data: ");
         scanf("%s", s);
-
+        if (n >= N) {
+            printf("Memory error - too much data (max=%d)\nExecuting "
+                   "stopped!\n",
+                   N);
+            return 2;
+        }
         /*CHECK FOR CIRCLE*/
         if (strncmp(A, s, 7) == 0) {
             while (pc < 2) {
@@ -94,7 +99,7 @@ int main()
 
         else if (strcmp(s, exit) == 0) {
             printf("Executing stopped!\n");
-            break;
+            return 1;
         }
 
         /*CHECK FOR TRIANGLE*/

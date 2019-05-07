@@ -1,4 +1,4 @@
-build/geometry.exe
 *.o
 *.swp
 *.exe
+tags
